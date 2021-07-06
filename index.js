@@ -1,10 +1,10 @@
 const server = require("./server");
 const persist = require("./persist");
 
-const port = process.argv[2];
+const port = process.argv[2] || 8080;
 
-persist(()=>{
-    server.listen(port, ()=>{
-        console.log(`Code School 2021 Forum app running on ${port}`)
-    })
-})
+persist(() => {
+  server.listen(port, () => {
+    console.log(`Code School 2021 Forum App Running on Port ${port}`);
+  });
+});
