@@ -13,13 +13,10 @@ function connect(callback){
         .catch((err)=>{
             console.log(err);
         });
+
+    mongoose.connection.once("open", callback);
 }
 
-function onConnect(callback){
-    mongoose.connection.once("open",callback);
-}
 
-module.exports = {
-    connect,
-    onConnect
-}
+
+module.exports = connect;
