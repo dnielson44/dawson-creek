@@ -36,7 +36,7 @@ server.get("/thread", (req, res) => {
   if (req.query.name !== null && req.query.name !== undefined) {
     findQuery.name = { $regex: req.query.name };
   }
-  Thread.find({}, (err, threads) => {
+  Thread.find(findQuery, (err, threads) => {
     if (err != null) {
       res.status(500).json({
         error: err,
