@@ -98,6 +98,22 @@
           </v-flex>
           </v-layout>
         </v-flex>
+        <v-layout>
+          <v-flex xs3></v-flex>
+          <v-flex xs6 text-xs-center>
+            <div class="display-2">Create Post</div>
+            <v-text-field
+            label="Author"
+            v-model="new_post_author">
+          </v-text-field> 
+            <v-text-field
+              label="body"
+              v-model="new_post_body">
+            </v-text-field>
+
+            
+
+      <v-btn v-on:click="createPost(thread._id)">Submit</v-btn>
         <v-flex xs3></v-flex>
         </v-layout>
       </v-container>
