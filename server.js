@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const { Thread } = require("./model");
+const fs = require("fs");
 
 const server = express();
 
@@ -166,4 +167,22 @@ server.delete("/post/:thread_id/:post_id", (req, res) => {
       res.status(200).json(thread);
     }
   );
+});
+
+server.use((req, res, next) => {
+  let data = [
+    "Time: ",
+    Date.now(),
+    " - Method: ",
+    req.method,
+    " - Path: ",
+    req.originalUrl,
+    " - Body: ",
+    req.body,
+  ];
+  fs.writeFile("usage-metrics.txt", data, (err) => {
+    // In case of a error throw err.
+    if (err) throw err;
+  });
+  next();
 });
