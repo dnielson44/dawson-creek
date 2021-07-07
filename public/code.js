@@ -30,6 +30,9 @@ var app = new Vue({
     new_post_body: "",
     new_post_author: "",
 
+    //for thread searching
+    thread_search: "",
+
     server_url: "https://cs2021-forum.herokuapp.com",
   },
   created: function () {
@@ -37,6 +40,15 @@ var app = new Vue({
   },
   methods: {
     getThreads: function () {
+      if (thread_search != "") {
+        fetch(this.server_url + "/thread?name=" + this.thread_search).then(
+          function (res) {
+            res.json().then(function (data) {
+              app.threads = data;
+            });
+          }
+        );
+      }
       fetch(this.server_url + "/thread").then(function (res) {
         res.json().then(function (data) {
           app.threads = data;

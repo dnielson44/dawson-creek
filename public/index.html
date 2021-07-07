@@ -37,6 +37,17 @@
              label="Category"
              v-model="selected_category">
             </v-select>
+            <v-text-field
+                label="Search By Title"
+                v-model="thread_search">
+              </v-text-field>
+              <v-btn
+                  v-on:click="getThreads()"
+                  rounded
+                  color="primary"
+                  dark>
+                Search
+                </v-btn>
 
           <v-layout>
             <v-flex xs3></v-flex>
