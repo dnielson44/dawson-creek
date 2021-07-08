@@ -33,14 +33,15 @@ var app = new Vue({
     //for thread searching
     thread_search: "",
 
-    server_url: "https://cs2021-forum.herokuapp.com",
+    // server_url: "https://cs2021-forum.herokuapp.com",
+    server_url: "http://localhost:8080",
   },
   created: function () {
     this.getThreads();
   },
   methods: {
     getThreads: function () {
-      if (thread_search != "") {
+      if (this.thread_search) {
         fetch(this.server_url + "/thread?name=" + this.thread_search).then(
           function (res) {
             res.json().then(function (data) {
@@ -48,12 +49,13 @@ var app = new Vue({
             });
           }
         );
-      }
-      fetch(this.server_url + "/thread").then(function (res) {
-        res.json().then(function (data) {
-          app.threads = data;
+      } else {
+        fetch(this.server_url + "/thread").then(function (res) {
+          res.json().then(function (data) {
+            app.threads = data;
+          });
         });
-      });
+      }
     },
 
     createThread: function () {
