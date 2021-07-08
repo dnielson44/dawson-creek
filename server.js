@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const { Thread } = require("./model");
+const fs = require("fs");
 
 const server = express();
 
@@ -29,7 +30,14 @@ module.exports = server;
 server.get("/thread", (req, res) => {
   res.setHeader("Content-Type", "application/json");
   console.log("getting all threads");
-  Thread.find({}, (err, threads) => {
+  let findQuery = {};
+  if (req.query.author !== null && req.query.author !== undefined) {
+    findQuery.author = { $regex: req.query.author };
+  }
+  if (req.query.name !== null && req.query.name !== undefined) {
+    findQuery.name = { $regex: req.query.name };
+  }
+  Thread.find(findQuery, (err, threads) => {
     if (err != null) {
       res.status(500).json({
         error: err,
@@ -167,4 +175,22 @@ server.delete("/post/:thread_id/:post_id", (req, res) => {
       res.status(200).json(thread);
     }
   );
+});
+
+server.use((req, res, next) => {
+  let data = [
+    "Time: ",
+    Date.now(),
+    " - Method: ",
+    req.method,
+    " - Path: ",
+    req.originalUrl,
+    " - Body: ",
+    req.body,
+  ];
+  fs.writeFile("usage-metrics.txt", data, (err) => {
+    // In case of a error throw err.
+    if (err) throw err;
+  });
+  next();
 });
