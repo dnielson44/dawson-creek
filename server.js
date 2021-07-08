@@ -144,7 +144,7 @@ server.post("/post", (req, res) => {
 // PUT /post/:thread_id/:post_id
 server.put("/post/:thread_id/:post_id", (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  console.log(`attempting to patch update post with id ${req.params.post_id}`);
+  console.log(`attempting to put update post with id ${req.params.post_id}`);
   Thread.findOneAndUpdate(
     {
       _id: req.params.thread_id,
