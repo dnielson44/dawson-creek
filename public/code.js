@@ -85,6 +85,7 @@ var app = new Vue({
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          // trolled lmao
         },
       }).then(function () {
         app.getThreads();
