@@ -110,7 +110,7 @@ var app = new Vue({
         thread_id: thread_id,
         author: this.new_post_author,
         body: this.new_post_body,
-        votes: this.new_post_vote_count, // vote count 
+        // votes: this.new_post_vote_count, // vote count 
       };
       fetch(this.server_url + "/post", {
         method: "POST",
