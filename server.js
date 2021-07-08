@@ -109,6 +109,8 @@ server.delete("/thread/:thread_id", (req, res) => {
     }
   );
 });
+// I don't know how to do this
+// -Braden
 // POST /post
 server.post("/post", (req, res) => {
   res.setHeader("Content-Type", "application/json");
