@@ -141,6 +141,28 @@ server.post("/post", (req, res) => {
   );
 });
 
+// PUT /post/:thread_id/:post_id
+server.put("/post/:thread_id/:post_id", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  console.log(`attempting to patch update post with id ${req.params.post_id}`);
+  let updatedPost = {
+    _id: req.params.post_id || "",
+    author: req.body.author || "",
+    body: req.body.body || "",
+    thread_id: req.body.thread_id || "",
+  };
+  Thread.findOneAndUpdate(
+    {
+      _id: req.params.thread_id,
+      "posts._id": req.params.post_id,
+    },
+    {
+      updatedPost 
+    }
+  );
+  res.status(204).json("success");
+});
+
 // DELETE /post/:thread_id/:post_id
 server.delete("/post/:thread_id/:post_id", (req, res) => {
   res.setHeader("Content-Type", "application/json");
