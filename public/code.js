@@ -30,18 +30,32 @@ var app = new Vue({
     new_post_body: "",
     new_post_author: "",
 
-    server_url: "https://cs2021-forum.herokuapp.com",
+    //for thread searching
+    thread_search: "",
+
+    // server_url: "https://cs2021-forum.herokuapp.com",
+    server_url: "http://localhost:8080",
   },
   created: function () {
     this.getThreads();
   },
   methods: {
     getThreads: function () {
-      fetch(this.server_url + "/thread").then(function (res) {
-        res.json().then(function (data) {
-          app.threads = data;
+      if (this.thread_search) {
+        fetch(this.server_url + "/thread?name=" + this.thread_search).then(
+          function (res) {
+            res.json().then(function (data) {
+              app.threads = data;
+            });
+          }
+        );
+      } else {
+        fetch(this.server_url + "/thread").then(function (res) {
+          res.json().then(function (data) {
+            app.threads = data;
+          });
         });
-      });
+      }
     },
 
     createThread: function () {

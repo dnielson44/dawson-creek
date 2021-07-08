@@ -30,7 +30,14 @@ module.exports = server;
 server.get("/thread", (req, res) => {
   res.setHeader("Content-Type", "application/json");
   console.log("getting all threads");
-  Thread.find({}, (err, threads) => {
+  let findQuery = {};
+  if (req.query.author !== null && req.query.author !== undefined) {
+    findQuery.author = { $regex: req.query.author };
+  }
+  if (req.query.name !== null && req.query.name !== undefined) {
+    findQuery.name = { $regex: req.query.name };
+  }
+  Thread.find(findQuery, (err, threads) => {
     if (err != null) {
       res.status(500).json({
         error: err,
