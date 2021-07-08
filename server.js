@@ -109,8 +109,7 @@ server.delete("/thread/:thread_id", (req, res) => {
     }
   );
 });
-// I don't know how to do this
-// -Braden
+
 // POST /post
 server.post("/post", (req, res) => {
   res.setHeader("Content-Type", "application/json");
@@ -169,3 +168,10 @@ server.delete("/post/:thread_id/:post_id", (req, res) => {
     }
   );
 });
+
+
+
+// I do not know how to do anything in this class
+// -Braden
+
+// aaaaaahhhhhhhh
