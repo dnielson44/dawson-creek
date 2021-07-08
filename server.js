@@ -145,22 +145,33 @@ server.post("/post", (req, res) => {
 server.put("/post/:thread_id/:post_id", (req, res) => {
   res.setHeader("Content-Type", "application/json");
   console.log(`attempting to patch update post with id ${req.params.post_id}`);
-  let updatedPost = {
-    _id: req.params.post_id || "",
-    author: req.body.author || "",
-    body: req.body.body || "",
-    thread_id: req.body.thread_id || "",
-  };
   Thread.findOneAndUpdate(
     {
       _id: req.params.thread_id,
       "posts._id": req.params.post_id,
     },
     {
-      updatedPost 
+      $set: {
+        "posts.$.author": req.body.author,
+        "posts.$.body": req.body.body,
+      },
+    },
+    (err, thread) => {
+      if (err != null) {
+        res.status(500).json({
+          error: err,
+          message: "couldn't delete thread",
+        });
+        return;
+      } else if (thread === null) {
+        res.status(400).json({
+          error: "thread not found",
+        });
+        return;
+      }
+      res.status(200).json(thread);
     }
   );
-  res.status(204).json("success");
 });
 
 // DELETE /post/:thread_id/:post_id
