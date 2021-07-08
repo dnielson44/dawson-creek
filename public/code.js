@@ -33,9 +33,7 @@ var app = new Vue({
 
     //for thread searching
     thread_search: "",
-
-    // server_url: "https://cs2021-forum.herokuapp.com",
-    server_url: "http://localhost:8080",
+    server_url: process.env.NODE_ENV == "production" ? "https://cs2021-forum.herokuapp.com" : "http://localhost:8080",
   },
   created: function () {
     this.getThreads();
