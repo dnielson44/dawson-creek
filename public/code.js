@@ -29,8 +29,10 @@ var app = new Vue({
     //for a new post on a thread
     new_post_body: "",
     new_post_author: "",
+    new_post_vote_count: 0, // post vote count
 
-    server_url: "https://cs2021-forum.herokuapp.com",
+    // server_url: "https://cs2021-forum.herokuapp.com",
+    server_url: "http://localhost:8080",
   },
   created: function () {
     this.getThreads();
@@ -95,6 +97,7 @@ var app = new Vue({
         thread_id: thread_id,
         author: this.new_post_author,
         body: this.new_post_body,
+        votes: this.new_post_vote_count, // vote count 
       };
       fetch(this.server_url + "/post", {
         method: "POST",
@@ -118,6 +121,20 @@ var app = new Vue({
         app.getPosts(post.thread_id);
       });
     },
+    // voting up
+    // voteAdd: function (post) {
+    //   var vote = { votes: this.new_post_vote_count };
+    //   fetch(this.server_url + "/post/" + post.thread_id + "/" + post._id, {
+    //     method: "PATCH",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(vote),
+    //   }).then( function () {
+    //     app.new_post_vote_count++;
+    //     app.getPosts(post.thread_id);
+    //   });
+    // }
   },
   computed: {
     sorted_threads: function () {

@@ -5,6 +5,7 @@ const postSchema = mongoose.Schema(
     author: String,
     body: String,
     thread_id: { type: mongoose.Schema.Types.ObjectId, ref: "Thread" },
+    // votes: Number,
   },
   { timestamps: true }
 );

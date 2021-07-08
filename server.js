@@ -117,6 +117,7 @@ server.post("/post", (req, res) => {
     author: req.body.author || "",
     body: req.body.body || "",
     thread_id: req.body.thread_id || "",
+    // votes: req.body.votes || 0,
   };
 
   Thread.findByIdAndUpdate(

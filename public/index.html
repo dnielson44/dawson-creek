@@ -83,6 +83,7 @@
               <div>
                 <div class="caption">By: {{ post.author }}</div>
                 <span class="caption">{{ post.body }}</span><br>
+                <span class="caption">{{ post.votes }}</span>
               </div>
               
               <v-spacer></v-spacer>
@@ -93,6 +94,13 @@
                   dark>
                 Delete 
                 </v-btn>
+                <!-- <v-btn
+                  v-on:click="voteAdd(post)"
+                  rounded
+                  color="primary"
+                  green>
+                Like 
+                </v-btn> -->
               </v-card-title>
             </v-card>
           </v-flex>
